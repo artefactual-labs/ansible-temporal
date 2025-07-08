@@ -2,3 +2,11 @@ temporalGrpcAddress: {{ temporal_rpc_address }}:{{ temporal_service_frontend_grp
 host: {{ temporal_ui_host }}
 port: {{ temporal_ui_port }}
 enableUi: true
+cors:
+  cookieInsecure: {{ https_enabled|default('false') }}
+  allowOrigins:
+    - "*" # used at development by https://github.com/temporalio/ui
+  unsafeAllowAllOrigins: true
+
+auth:
+  enabled: {{ temporal_auth_enabled|default('false') }}
