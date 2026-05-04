@@ -20,6 +20,7 @@
   loop:
     - "/etc/temporal"
     - "/etc/temporal/config"
+    - "{{ temporal_dynamic_config_dir }}"
   check_mode: false
 
 - name: Copy the temporal config file
@@ -32,6 +33,19 @@
   with_first_found:
     - templates/{{ inventory_hostname }}/temporal.yaml.j2
     - templates/temporal.yaml.j2
+  notify: restart temporal
+
+- name: Copy the temporal dynamic config file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temporal_dynamic_config_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_first_found:
+    - templates/{{ inventory_hostname }}/temporal-dynamic-config.yaml.j2
+    - templates/temporal-dynamic-config.yaml.j2
+  notify: restart temporal
 
 - name: "Setup database schemas"
   become: "yes"

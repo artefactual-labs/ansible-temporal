@@ -2,6 +2,10 @@ log:
   stdout: true
   level: info
 
+dynamicConfigClient:
+  filepath: "{{ temporal_dynamic_config_file }}"
+  pollInterval: "{{ temporal_dynamic_config_poll_interval }}"
+
 persistence:
   defaultStore: mysql-default
   visibilityStore: mysql-visibility

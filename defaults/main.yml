@@ -39,6 +39,13 @@ temporal_service_history_membership_port: "6934"
 temporal_service_worker_grpc_port: "7239"
 temporal_service_worker_membership_port: "6939"
 
+temporal_dynamic_config_dir: "/etc/temporal/config/dynamicconfig"
+temporal_dynamic_config_file: "{{ temporal_dynamic_config_dir }}/{{ temporal_env }}.yaml"
+temporal_dynamic_config_poll_interval: "60s"
+temporal_dynamic_config:
+  frontend.enableUpdateWorkflowExecution:
+    - value: true
+
 temporal_archival_history_state: "enabled"
 temporal_archival_history_URI: "file:///tmp/temporal_archival/development"
 
