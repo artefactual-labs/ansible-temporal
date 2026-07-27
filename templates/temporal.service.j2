@@ -8,5 +8,7 @@ Restart=on-failure
 User={{ temporal_system_user }}
 ExecStart={{ temporal_binary_install_dir }}/temporal-server --root=/etc/temporal --env={{ temporal_env }} start --services=frontend,matching,history,worker
 
+ExecStartPost=/usr/bin/timeout 30 sh -c 'while ! ss -H -t -l -n sport = :7233| grep -q "^LISTEN.*:7233"; do sleep 1; done'
+
 [Install]
 WantedBy={{ temporal_systemd_wantedby_services }}
